@@ -13,8 +13,12 @@
 
 我们需要的是一个不破坏html结构的模板，于是有了下面的代码。
 
-普通绑定：<p data-bind="content"></p>
+普通绑定：
+
+    <p data-bind="content"></p>
+
 循环绑定：
+
         <ul data-repeat-name='data1'>
             <li>{market_product_id}:{content}</li>
         </ul>
