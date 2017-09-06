@@ -1,0 +1,53 @@
+<html>
+<head>
+    <title>test</title>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <script src="../libs/jquery.min.js"></script>
+    <script src="../src/domjs.js"></script>
+    <script src="../src/util.js"></script>
+    <script src="../src/template/template.js"></script>
+    <script src="../src/template/util.js"></script>
+    <script src="../src/template/syntax.js"></script>
+    <script src="../src/template/funcs.js"></script>
+    <script src="../src/template/render.js"></script>
+    <script src="../src/module/http.js"></script>
+    <script src="../src/module/jsonp.js"></script>
+    <script src="../src/module/cookie.js"></script>
+    <script src="../src/module/validate.js"></script>
+    <script src="../src/module/form.js"></script>
+    <script src="../src/module/ajax.js"></script>
+    <script src="../src/module/funcs.js"></script>
+</head>
+<body>
+<div id="log"></div>
+<ul>
+    <li data-title="1"><a href='single.html'>单变量绑定</a></li>
+    <li data-title="2"><a href='list.html'>数组绑定</a></li>
+        <li>使用内部函数处理输出结果：<p data-bind="market_product_id" data-bind-to="innerHTML">
+        {market_product_id|repeat,':)'}/{product_name}/show.html
+
+        <p/>用|分开，直接跟函数名，如果函数有多个参数，那么前面的变量为第一个变量
+    </li>
+</ul>
+进行简单的运算：<p data-bind="product_name" data-bind-to="innerHTML">
+    {list|range,'
+    <b>(id)</b>
+    '}
+
+<p/>用|连接即可。
+<script>
+    var datastr = '{"error":0,"data":[{"list":[{"id":1},{"id":2},{"id":3},{"id":4}],"id":1,"market_product_id":"2","product_name":"a\\u82f9\\u679c\\u6c41\\u82f9\\u679c\\u6c41\\u82f9\\u679c\\u6c41\\u82f9\\u679c\\u6c41\\u82f9\\u679c\\u6c41","thumb":"logo.jpg","content":"<b>\\u82f9\\u679c\\u6c41</b>haha"}]}';            //'   //Render.init(document.all);
+    var data = eval('(' + datastr + ')');
+    var out_abc = 'hello world';
+    function hello(a, b) {
+        return a + '--' + b;
+    }
+    domjs.ready(function () {
+        //domjs.bindData(data.data[0]);
+        domjs.iBind('data.json');
+    });
+    //var obj = $('[data-title]');
+    //console.log(obj);
+</script>
+</body>
+</html>
