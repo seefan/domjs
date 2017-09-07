@@ -163,15 +163,15 @@
         if (data) {
             if (dj.util.isArray(data)) {
                 if (data.length > dj.animationBindMin) {
-                    r.bindRepeatData(option.id, data, option.isAppend, option.isAnimation);
+                    dj.bindRepeatData(option.id, data, option.isAppend, option.isAnimation);
                 } else {
-                    r.bindRepeatData(option.id, data, option.isAppend);
+                    dj.bindRepeatData(option.id, data, option.isAppend);
                 }
             } else {
                 if (option.id) {
-                    r.bindData(option.id, data);
+                    dj.bindData(option.id, data);
                 } else {
-                    r.bindData(data);
+                    dj.bindData(data);
                 }
             }
         }
