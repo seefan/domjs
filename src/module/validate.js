@@ -152,7 +152,7 @@
      * @returns {boolean}
      */
     v.rule.confirm = function (str, rule) {
-        return str == rule;
+        return str === rule;
     };
     /**
      * 扩展验证

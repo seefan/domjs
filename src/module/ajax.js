@@ -1,4 +1,4 @@
-(function(dj){
+(function(dj,http,jsonp){
 
     /**
      *请求并绑定远程数据，支持数组和单变量绑定，功能全面
@@ -30,7 +30,7 @@
      * @param {function} errorback    [可选] 请求失败的回调
      */
     dj.ajaxBind = function (id, postUrl, param, datafilter, callback, errorback) {
-        if (typeof postUrl == 'undefined') {
+        if (typeof postUrl === 'undefined') {
             postUrl = id;
             id = '';
         }
@@ -54,7 +54,7 @@
      * @returns {ajax} 一个ajax请求的对象，支持filter、success、error、bind、isAppend几个方法。
      */
     dj.ajax = function (postUrl, param) {
-        if (param === '' || typeof param == 'undefined') {
+        if (param === '' || typeof param === 'undefined') {
             param = dj.util.getUrlQuery();
         }
         var option = {
@@ -137,13 +137,13 @@
             option.param.token = dj.login.token;
         }
         if (dj.enableJsonp) {
-            dj.jsonp.get(dj.root + dj.apiroot + option.url, option.param, function (e) {
+            jsonp.get(dj.root + dj.apiroot + option.url, option.param, function (e) {
                 success(option, e);
             }, function (e) {
                 option.f_error(e);
             });
         } else {
-            dj.http.post(dj.root + dj.apiroot + option.url, option.param, function (e) {
+            http.post(dj.root + dj.apiroot + option.url, option.param, function (e) {
                 success(option, e);
             }, function (e) {
                 option.f_error(e);
@@ -242,8 +242,8 @@
             callback = param;
             param = {};
         }
-        if (param === '' || typeof param == 'undefined') {
-            param = r.util.getUrlQuery();
+        if (param === '' || typeof param === 'undefined') {
+            param = dj.util.getUrlQuery();
         }
         if (!dj.util.isPlainObject(param)) {
             param = {};
@@ -251,7 +251,7 @@
         if (dj.login) {
             param.token = dj.login.token;
         }
-        if (typeof errorback != 'function') {
+        if (typeof errorback === 'function') {
             errorback = dj.error;
         }
         dj.http.post(dj.root + dj.apiroot + url, param, callback, errorback);
@@ -281,8 +281,8 @@
             callback = param;
             param = {};
         }
-        if (param === '' || typeof param == 'undefined') {
-            param = r.util.getUrlQuery();
+        if (param === '' || typeof param === 'undefined') {
+            param = dj.util.getUrlQuery();
         }
         if (!dj.util.isPlainObject(param)) {
             param = {};
@@ -290,13 +290,13 @@
         if (dj.login) {
             param.token = dj.login.token;
         }
-        if (typeof errorback != 'function') {
+        if (typeof errorback !== 'function') {
             errorback = dj.error;
         }
         if (dj.enableJsonp) {
-            dj.jsonp.get(dj.root + dj.apiroot + url, param, callback, errorback);
+            jsonp.get(dj.root + dj.apiroot + url, param, callback, errorback);
         } else {
-            dj.http.post(dj.root + dj.apiroot + url, param, callback, errorback);
+            http.post(dj.root + dj.apiroot + url, param, callback, errorback);
         }
 
     };
@@ -322,7 +322,7 @@
      * @param callback {function} [可选] 回调函数
      */
     dj.iBind = function (id, postUrl, param, callback) {
-        if (typeof postUrl == 'undefined') {
+        if (typeof postUrl === 'undefined') {
             postUrl = id;
             id = '';
         }
@@ -347,4 +347,4 @@
             return false;
         }).success(callback).bind(id);
     };
-})(window.domjs);
+})(window.domjs,window.domjs.http,window.domjs.jsonp);

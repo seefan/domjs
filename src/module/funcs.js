@@ -32,9 +32,9 @@
      */
     dj.back = function (reload) {
         if (document.referrer && reload === true) {
-            location.href = document.referrer;
+            window.location.href = document.referrer;
         } else {
-            history.back();
+            window.history.back();
         }
     };
     /**
@@ -48,7 +48,7 @@
      * @param callback {function} 该事件被触发时执行的函数。 false 值也可以做一个函数的简写，返回false
      */
     dj.on = function (owner, eventName, selector, data, callback) {
-        if (typeof jQuery != 'undefined') {
+        if (typeof jQuery !== 'undefined') {
             jQuery(owner).on(eventName, selector, data, callback);
         }
     };
@@ -59,14 +59,14 @@
      * @param cacheName {string} [可选] 缓存的名称
      */
     dj.go = function (url, cacheName) {
-        r.util.gotoUrl(url, cacheName);
+        dj.util.gotoUrl(url, cacheName);
     };
     /**
      * 重置加载当前页面
      * @method reload
      */
     dj.reload = function () {
-        location.reload();
+        window.location.reload();
     };
     /**
      * 显示登陆页，默认直接转到login.html页，登陆完成后调用app.closeLogin()关闭登陆页。
@@ -75,7 +75,7 @@
         //登陆页现在有3种，微信里，页面内容直接被替换为login.html，app里是新建一个login.html盖住当前页，测试时是直接转到login.html
         //关闭时，微信直接reload即可，app是关闭login页，测试是回退到上一页。
     dj.showLogin = function () {
-        location.href = 'login.html';
+        window.location.href = 'login.html';
     };
     /**
      * 关闭登陆页

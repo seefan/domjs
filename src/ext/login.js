@@ -35,12 +35,12 @@
         service.token = token;
         app.store.set('app_online_user_token', token);
 
-        if (typeof name === 'string' && name != '') {
+        if (typeof name === 'string' && name !== '') {
             service.name = name;
             app.store.set('app_online_user_name', name);
         }
 
-        if (typeof className != 'undefined') {
+        if (typeof className !== 'undefined') {
             service.className = className;
             app.store.set('app_online_user_class', className);
         }

@@ -16,7 +16,7 @@
             return;
         }
         service.cityname = '北京';
-        if (typeof id == 'function') {
+        if (typeof id === 'function') {
             callback = id;
             id = undefined;
         }

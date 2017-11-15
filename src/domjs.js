@@ -51,7 +51,7 @@
  *
  * @class domjs
  */
-(function(dj, document, undefined) {
+(function (dj, document, undefined) {
     'use strict';
     //是否已初始化
     dj.isInit = false;
@@ -74,7 +74,7 @@
      * @type {Object}
      * @default dj.ajax
      */
-    dj.optAjax = typeof jQuery != 'undefined' ? jQuery : false;
+    dj.optAjax = typeof(jQuery) !== 'undefined' ? jQuery : false;
     /**
      * 站点根路径，通常上传的图片使用这个值
      * @property root
@@ -140,15 +140,14 @@
     /**
      * 窗口准备完毕，可以开始加载数据
      */
-    dj.init = function() {
+    dj.init = function () {
         if (dj.isInit) {
             return;
-        }else{
-            dj.isInit = true;
         }
+        dj.isInit = true;
         if (!dj.debug) {
             // 禁止右键菜单
-            document.oncontextmenu = function() {
+            document.oncontextmenu = function () {
                 return false;
             };
         }
@@ -161,10 +160,10 @@
         if (dj.bindSelf) {
             dj.bindData('domjs', dj);
         }
-        var exec = function(af) {
+        var exec = function (af) {
             if (!af.executed) {
                 af.executed = true;
-                setTimeout(function() {
+                setTimeout(function () {
                     af.callback();
                 }, 1);
             }
@@ -185,11 +184,11 @@
      * @method ready
      * @param {Object} callback 回调函数
      */
-    dj.ready = function(callback) {
-        if (typeof callback != 'function') {
+    dj.ready = function (callback) {
+        if (typeof callback !== 'function') {
             return;
         }
-        var rf = { executed: false, callback: callback };
+        var rf = {executed: false, callback: callback};
         if (dj.isInit) {
             rf.callback();
             rf.executed = true;
@@ -197,14 +196,14 @@
         dj.readyFunction.push(rf);
     };
 
-    var testReady = function() {
+    var testReady = function () {
         if (/complete|loaded|interactive/.test(document.readyState) && document.body) {
             dj.init();
             return true;
         }
         return false;
     };
-    var timeReady = function() {
+    var timeReady = function () {
         if (!testReady()) {
             setTimeout(timeReady, 5);
         }
@@ -212,7 +211,7 @@
     //开始初始化将执行ready方法
     if (!testReady()) {
         if (document.addEventListener) {
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function () {
                 testReady();
             }, false);
         } else {

@@ -19,7 +19,7 @@
      * @returns {object}
      */
     r.addFunc('default', function (val, defaultVal) {
-        if (val === undefined || typeof(val) == 'undefined' || val === '' || val === 'null') {
+        if (val === undefined || typeof(val) === 'undefined' || val === '' || val === 'null') {
             return defaultVal;
         }
         return val;
@@ -38,7 +38,7 @@
      * @returns {object}
      */
     r.addFunc('empty', function (val, emptyValue, notEmptyValue) {
-        if (val === undefined || typeof(val) == 'undefined' || val === '' || val === 'null') {
+        if (val === undefined || typeof(val) === 'undefined' || val === '' || val === 'null') {
             return emptyValue;
         } else {
             return notEmptyValue;
@@ -60,7 +60,7 @@
      */
     r.addFunc('case', function (val) {
         for (var i = 1; i < arguments.length; i += 2) {
-            if (val == arguments[i] && i < arguments.length - 1) {
+            if (val === arguments[i] && i < arguments.length - 1) {
                 return arguments[i + 1];
             }
         }
@@ -99,7 +99,7 @@
      * @returns {string} 格式化后的日期串
      */
     r.addFunc('format_date', function (val, fmt) {
-        if (typeof(val) != 'object') {
+        if (typeof(val) !== 'object') {
             val = new Date(parseInt(val));
         }
         if (!fmt) {
@@ -114,11 +114,14 @@
             "q+": Math.floor((val.getMonth() + 3) / 3), //季度
             "S": val.getMilliseconds()             //毫秒
         };
-        if (/(y+)/.test(fmt))
+        if (/(y+)/.test(fmt)) {
             fmt = fmt.replace(RegExp.$1, (val.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in format_data_o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (format_data_o[k]) : (("00" + format_data_o[k]).substr(("" + format_data_o[k]).length)));
+        }
+        for (var k in format_data_o) {
+            if (new RegExp("(" + k + ")").test(fmt)) {
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (format_data_o[k]) : (("00" + format_data_o[k]).substr(("" + format_data_o[k]).length)));
+            }
+        }
         return fmt;
 
     });
@@ -134,10 +137,10 @@
      * @returns {number}
      */
     r.addFunc('fixed', function (val, c) {
-        if (typeof c == 'undefined') {
+        if (typeof c === 'undefined') {
             c = 0;
         }
-        if (typeof(val) == 'number') {
+        if (typeof(val) === 'number') {
             return val.toFixed(c);
         } else {
             return val;

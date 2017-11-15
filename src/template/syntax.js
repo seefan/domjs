@@ -38,7 +38,7 @@
      * @param text
      */
     function runText(text) {
-        if (typeof(text) == 'string') {
+        if (typeof(text) === 'string') {
             return '"' + text.replace(/"/g, '\\"').replace(/\r/g, '\\r').replace(/\n/g, '\\n').replace('data-bind-src', 'src') + '"';
         } else {
             return r.util.getStringValue(text);
@@ -52,7 +52,7 @@
      */
     function runKeyword(funcString) {
         var filterHtml = true;
-        if (funcString[0] == '!') {
+        if (funcString[0] === '!') {
             funcString = funcString.substring(1);
             filterHtml = false;
         }
@@ -115,7 +115,7 @@
      * @returns {string}
      */
     function runFunc(funcName) {
-        if (funcName && funcName.length > 1 && funcName.charAt(0) == '#') {
+        if (funcName && funcName.length > 1 && funcName.charAt(0) === '#') {
             return funcName.substring(1);
         } else if (r.funcs[funcName]) {
             return 'my.funcs["' + funcName + '"]';
@@ -229,9 +229,9 @@
      */
     function getEnd(word, i, ec) {
         for (var j = i + 1; j < word.length; j++) {
-            if (word.charAt(j) == ec) {//找到结尾
+            if (word.charAt(j) === ec) {//找到结尾
                 return j;
-            } else if (word.charAt(j) == '"' || word.charAt(j) == "'") {
+            } else if (word.charAt(j) === '"' || word.charAt(j) === "'") {
                 i = getEnd(word, j, word.charAt(j));
                 if (i === 0) {
                     return 0;

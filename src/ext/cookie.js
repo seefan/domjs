@@ -1,7 +1,7 @@
 /**
  * cookie 通过处理类
  */
-(function (document,window) {
+(function (document, window) {
 
     var cookie = function () {
         return cookie.get.apply(cookie, arguments);
@@ -25,7 +25,9 @@
     cookie.set = function (key, value, expires) {
         expires = new Date(new Date() + 1000 * this.expiresMultiplier * expires); // This is needed because IE does not support the `max-age` cookie attribute.
 
-        if (expires !== '' && 'toGMTString' in expires) expires = ';expires=' + expires.toGMTString();
+        if (expires !== '' && 'toGMTString' in expires) {
+            expires = ';expires=' + expires.toGMTString();
+        }
 
         document.cookie = utils.encode(key) + '=' + utils.encode(value) + expires;
 
@@ -45,7 +47,9 @@
     };
 
     cookie.all = function () {
-        if (document.cookie === '') return {};
+        if (document.cookie === '') {
+            return {}
+        }
 
         var cookies = document.cookie.split('; '),
             result = {};
@@ -63,10 +67,10 @@
     // If a CommonJS loader is present use CommonJS.
     // Otherwise assign the `cookie` object to the global scope.
 
-    if (typeof define === 'function' && define.amd) {
+    if (typeof(define) === 'function' && define.amd) {
         define(function () {
             return cookie;
         });
     } else window.cookie = cookie;
 // If used e.g. with Browserify and CommonJS, document is not declared.
-})(document,window);
+})(document, window);

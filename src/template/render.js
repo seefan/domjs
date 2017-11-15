@@ -291,7 +291,7 @@
         for (i = 0; i < items.length; i++) {
             value = '';
             key = items[i].attributes['data-bind'].value;
-            if (name != '__data__' && key.indexOf('.') != -1) {
+            if (name !== '__data__' && key.indexOf('.') !== -1) {
                 key = key.substring(name.length + 1);
             }
             if (!key||!data.hasOwnProperty(key)) {
@@ -324,7 +324,7 @@
 
             } else {
                 //单独处理一下img的data-bind-src，使用模板
-                if (items[i].tagName == 'IMG' && items[i].attributes['data-bind-src']) {
+                if (items[i].tagName === 'IMG' && items[i].attributes['data-bind-src']) {
                     //var xff = r.syntax.buildFunc(key, items[i].attributes['data-bind-src'].value);
                     var xff = r.syntax.cacheFunc('bind', items[i].attributes['data-bind-src'].value, items[i].attributes['data-bind-src'].value);
                     if (xff.func) {
@@ -373,7 +373,7 @@
      * @param tpl [可选] 指定模板内容
      */
     dj.bindRepeatData = function (name, data, append, animation, tpl) {
-        if (typeof data == 'undefined') {
+        if (typeof data === 'undefined') {
             data = name;
             name = 'data';
         }
@@ -387,7 +387,7 @@
         }
     };
     r.doRepeat = function (name, data, append, animation, tpl, item) {
-        if (typeof tpl != 'string') {
+        if (typeof tpl !== 'string') {
             tpl = item.innerHTML;
         }
         var cache = this.syntax.cacheFunc('repeat', name, tpl), i = 0;

@@ -2,7 +2,7 @@
  * 处理表单内容，用于数据传送
  * @class app.form
  */
-(function (service, va, util, undefined) {
+(function (dj,service, va, util, undefined) {
 
     /**
      * 表单项
@@ -39,7 +39,7 @@
      * @returns {*}
      */
     FormItem.prototype.getValue = function () {
-        if (this.values.length == 1) {
+        if (this.values.length === 1) {
             return this.values[0];
         } else {
             return this.values;
@@ -102,11 +102,11 @@
      * @return {Array|string|undefined} 如果执行了验证，在验证不通过时会返回undefined
      */
     service.val = function (selector, valid) {
-        if (typeof selector != 'string' || selector === '') {
+        if (typeof selector !== 'string' || selector === '') {
             return;
         }
         var items;
-        if (selector.substr(0, 1) == '#') {
+        if (selector.substr(0, 1) === '#') {
             selector = selector.substr(1);
             items = [];
             var item = document.getElementById(selector);
@@ -127,7 +127,7 @@
                     return value.getValue();
                 } else {
                     if (msg && service.isAlertError) {
-                        app.error(msg);
+                        dj.error(msg);
                     }
                     value.showError(msg);
                     return undefined;//返回验证失败
@@ -306,7 +306,7 @@
                     param[value.name] = value.getValue();
                 } else {
                     if (msg && service.isAlertError) {
-                        app.error(msg);
+                        dj.error(msg);
                     }
                     value.showError(msg);
                     return undefined;//返回验证失败
@@ -317,4 +317,4 @@
         }
         return param;
     };
-})(window.domjs.form = {}, window.domjs.validate, window.domjs.util);
+})(window.domjs,window.domjs.form = {}, window.domjs.validate, window.domjs.util);

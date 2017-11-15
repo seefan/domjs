@@ -11,7 +11,7 @@
      * @param val {string} 要清理的内容
      */
     u.trim = function(val) {
-        if (typeof(val) == 'string') {
+        if (typeof(val) === 'string') {
             return val.replace(/\r/g, '').replace(/\n/g, '').replace('　', '').trim();
         } else if (u.isPlainObject(val)) {
             return u.trim(u.getDefaultValue(val));
@@ -49,7 +49,7 @@
                     break;
                 case 'SELECT':
                     for (i = 0; i < ele.options.length; i++) {
-                        if (ele.options[i].value == value) {
+                        if (ele.options[i].value === value) {
                             ele.options[i].selected = true;
                             break;
                         }
@@ -69,7 +69,7 @@
      * @returns {string}
      */
     u.html = function(html) {
-        if (html && typeof(html) == 'string') {
+        if (html && typeof(html) === 'string') {
             html = html.replace(/<[^<]*>/gi, '');
             return html.trim();
         } else {
@@ -134,7 +134,7 @@
      * @returns {*}
      */
     u.getDefaultValue = function(val) {
-        if (val === null || typeof val == 'undefined') {
+        if (val === null || typeof val === 'undefined') {
             return '';
         } else {
             return val;
@@ -174,7 +174,7 @@
     u.show = function (ele, isTrue) {
         if (ele) {
             if (isTrue !== false) {
-                if (ele.style.display == 'none') {
+                if (ele.style.display === 'none') {
                     ele.style.display = '';
                 }
                 util.removeClass(ele, 'hide');

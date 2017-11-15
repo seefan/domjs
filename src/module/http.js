@@ -69,7 +69,7 @@
          * @param data
          */
         opt.success = function (data) {
-            if (typeof data == 'string' && data !== '') {
+            if (typeof data === 'string' && data !== '') {
                 data = util.eval('(' + data + ')');
             }
             if (data && (!data.error || data.error === 0 || data.error === '0')) {
