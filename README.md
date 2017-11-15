@@ -19,6 +19,6 @@
 
 循环绑定：
 
-        <ul data-repeat-name='data1'>
+        <ul data-repeat='data1'>
             <li>{market_product_id}:{content}</li>
         </ul>

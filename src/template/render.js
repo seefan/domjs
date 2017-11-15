@@ -91,7 +91,7 @@
  *
  * 例如：
  *
- *      <ul data-repeat-name='listdata'>
+ *      <ul data-repeat='listdata'>
  *          <li>{title}</li>
  *      </ul>
  *
@@ -105,7 +105,7 @@
  *
  * 最终会生成
  *
- *     <ul data-repeat-name='listdata'>
+ *     <ul data-repeat='listdata'>
  *          <li>hello 0</li>
  *          <li>hello 1</li>
  *     </ul>
@@ -114,13 +114,13 @@
  *
  * 1.普通输出：
  *
- *      <ul data-repeat-name='data'>
+ *      <ul data-repeat='data'>
  *          <li>{market_product_id}:{product_name}</li>
  *      </ul>
  *
  * 2.img的src绑定：
  *
- *      <ul data-repeat-name='data'>
+ *      <ul data-repeat='data'>
  *          <li><img data-bind-src='{thumb}'/>{market_product_id}:{!content}</li>
  *      </ul>
  *
@@ -232,7 +232,7 @@
  *
  * 模板内容为
  *
- *     <ul data-repeat-name='data0'>
+ *     <ul data-repeat='data0'>
  *         <li>{product_name} {price} <s>{oldprice}</s> </li>
  *     </ul>
  *
@@ -246,7 +246,7 @@
  *
  * 最终将输出
  *
- *     <ul data-repeat-name='data0'>
+ *     <ul data-repeat='data0'>
  *          <li>体验品 12 <s>100</s> </li>
  *          <li>体验品 13 <s>100</s> </li>
  *          <li>体验品 24 <s>100</s> </li>
@@ -380,7 +380,7 @@
         if (!data || !dj.util.isArray(data)) {
             return;
         }
-        var items = dj.util.querySelectorAll('[data-repeat-name="' + name + '"]');
+        var items = dj.util.querySelectorAll('[data-repeat="' + name + '"]');
   
         for (var i = 0; i < items.length; i++) {
             r.doRepeat(name + '_' + i, data, append, animation, tpl, items[i]);

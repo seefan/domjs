@@ -14,56 +14,56 @@
 <body>
 <ul>
     <li>模板输出：
-        <ul data-repeat-name='data'>
+        <ul data-repeat='data'>
 
         </ul>
     </li>
     <li>原始值按html输出：
-        <ul data-repeat-name='data1'>
+        <ul data-repeat='data1'>
             <li>{market_product_id}:{!content}</li>
         </ul>
     </li>
 
     <li>img的src绑定：
-        <ul data-repeat-name='data2'>
+        <ul data-repeat='data2'>
             <li><img data-bind-src='{thumb}'>{market_product_id}:{!content}</li>
         </ul>
     </li>
 
     <li>使用内部函数处理输出结果：
-        <ul data-repeat-name='data3'>
+        <ul data-repeat='data3'>
             <li>{market_product_id|repeat,':)'}:{!content}</li>
         </ul>
         用|分开，直接跟函数名，如果函数有多个参数，那么前面的变量为第一个变量
     </li>
     <li>使用外部函数处理输出结果：
-        <ul data-repeat-name='data4'>
+        <ul data-repeat='data4'>
             <li>{market_product_id|#hello,'@_@'}:{!content}</li>
         </ul>
         函数名前加了#号
     </li>
     <li>使用多个函数处理输出结果：
-        <ul data-repeat-name='data5'>
+        <ul data-repeat='data5'>
             <li>{market_product_id|repeat,')('|#hello,'@_@'}:{!content}</li>
         </ul>
         用|连接即可。
     </li>
 
     <li>使用外部变量：
-        <ul data-repeat-name='data6'>
+        <ul data-repeat='data6'>
             <li>{market_product_id}:{#out_abc}</li>
         </ul>
         变量前加#
     </li>
     <li>进行简单的运算：
-        <ul data-repeat-name='data7'>
+        <ul data-repeat='data7'>
             <li>{market_product_id} * 3 + 12= {market_product_id * 3 +12}</li>
         </ul>
     </li>
 </ul>
 
 <hr>
-<div data-repeat-name='data0'>
+<div data-repeat='data0'>
     {product_name}
 </div>
 <script>
