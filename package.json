@@ -1,0 +1,35 @@
+{
+  "name": "domjs",
+  "version": "1.0.0",
+  "description": "js for dom",
+  "main": "domjs.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seefan/domjs.git"
+  },
+  "keywords": [
+    "domjs"
+  ],
+  "author": "seefan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seefan/domjs/issues"
+  },
+  "homepage": "https://github.com/seefan/domjs#readme",
+  "devDependencies": {
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-jslint": "^1.1.15"
+  },
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-uglify": "^3.1.0"
+  }
+}
