@@ -326,6 +326,12 @@
             postUrl = id;
             id = '';
         }
+        if (dj.util.isPlainObject(postUrl)) {
+            callback=param;
+            param = postUrl;
+            postUrl=id;
+            id='';
+        }
         if (typeof param === "function") {
             callback = param;
             param = undefined;
@@ -333,7 +339,7 @@
         dj.util.setHide('#' + id + '_loading', false);
         return dj.ajax(postUrl, param).filter(function (e) {
             if (e.data) {
-                if (dj.util.isArray(e.data)) {
+                if (dj.util.isArray(e.data) && id!=='') {
                     if (e.data.length > 0) {
                         dj.util.setHide('#' + id + '_empty');
                     } else {

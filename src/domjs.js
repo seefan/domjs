@@ -192,6 +192,7 @@
         if (dj.isInit) {
             rf.callback();
             rf.executed = true;
+            return;
         }
         dj.readyFunction.push(rf);
     };

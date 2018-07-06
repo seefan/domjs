@@ -257,7 +257,7 @@
  *
  * @class Render
  */
-(function (dj,  r,w) {
+(function (dj, r, w) {
     'use strict';
     //
     /**
@@ -292,7 +292,7 @@
         }
     };
 
-    
+
     /**
      * 如果需要自行扩展Render的函数，请使用本函数。
      * 这些函数可以在html的模板中使用
@@ -319,4 +319,4 @@
      */
     dj.initFunction.push(r.init);
 })
-(window.domjs,  window.domjs.template = {},window);
+(window.domjs, window.domjs.template = {}, window);

@@ -44,8 +44,8 @@
             if (this.hasRequired(rules)) {
                 if (rules.required !== '') {
                     return rules.required;
-                } else if (rules.valtext !== '') {
-                    return rules.valtext;
+                } else if (rules.dataMessage !== '') {
+                    return rules.dataMessage;
                 } else {
                     return false;
                 }

@@ -257,8 +257,8 @@
  *
  * @class Render
  */
-(function (dj,r,w) {
-    'use strict'; 
+(function (dj, r, w) {
+    'use strict';
 
     /**
      * 绑定数据值
@@ -294,8 +294,11 @@
             if (name !== '__data__' && key.indexOf('.') !== -1) {
                 key = key.substring(name.length + 1);
             }
-            if (!key||!data.hasOwnProperty(key)) {
+            if (!key || !data.hasOwnProperty(key)) {
                 continue;
+            }
+            if (!items[i].name) {
+                items[i].name = key;
             }
             var bs = r.util.getBindToNameList(items[i]),
                 m = 0;//data-bind-to
@@ -336,7 +339,9 @@
                     value = r.util.html(r.util.getValue(key, data));
                 }
             }
-
+            if (items[i].attributes['data-format-date']) {
+                value = r.funcs.format_date(value);
+            }
             r.util.setValue(items[i], value);
             r.util.show(items[i]);
         }
@@ -381,7 +386,7 @@
             return;
         }
         var items = dj.util.querySelectorAll('[data-repeat="' + name + '"]');
-  
+
         for (var i = 0; i < items.length; i++) {
             r.doRepeat(name + '_' + i, data, append, animation, tpl, items[i]);
         }
@@ -429,4 +434,4 @@
         r.util.show(item);
     };
 })
-(window.domjs,window.domjs.template,window);
+(window.domjs, window.domjs.template, window);

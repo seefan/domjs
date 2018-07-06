@@ -2,7 +2,7 @@
  * 常用工具方法集合
  * @class Render.util
  */
-(function(w, u,util) {
+(function (w, u, util) {
     'use strict';
     /**
      * 清理代码，主要是清理掉换行和空格
@@ -10,7 +10,7 @@
      * @method trim
      * @param val {string} 要清理的内容
      */
-    u.trim = function(val) {
+    u.trim = function (val) {
         if (typeof(val) === 'string') {
             return val.replace(/\r/g, '').replace(/\n/g, '').replace('　', '').trim();
         } else if (u.isPlainObject(val)) {
@@ -26,9 +26,10 @@
      * @param ele 对象实例
      * @param value 值
      */
-    u.setValue = function(ele, value) {
+    u.setValue = function (ele, value) {
         var tag = ele.tagName,
-            i = 0;
+            i = 0, j = 0;
+        var vs;
         var bs = u.getBindToNameList(ele);
         if (bs.length > 0) {
             for (i in bs) {
@@ -40,25 +41,7 @@
                 }
             }
         } else {
-            switch (tag) {
-                case 'IMG':
-                    ele.src = value;
-                    break;
-                case 'INPUT':
-                    ele.value = value;
-                    break;
-                case 'SELECT':
-                    for (i = 0; i < ele.options.length; i++) {
-                        if (ele.options[i].value === value) {
-                            ele.options[i].selected = true;
-                            break;
-                        }
-                    }
-                    break;
-                default:
-                    ele.innerHTML = value;
-                    break;
-            }
+            util.bindElementValue(ele, value);
         }
     };
 
@@ -68,7 +51,7 @@
      * @param html {string}
      * @returns {string}
      */
-    u.html = function(html) {
+    u.html = function (html) {
         if (html && typeof(html) === 'string') {
             html = html.replace(/<[^<]*>/gi, '');
             return html.trim();
@@ -82,7 +65,7 @@
      * @param data
      * @returns {*}
      */
-    u.getName = function(key, data) {
+    u.getName = function (key, data) {
         var value = data[key];
         var type = typeof value;
         switch (type) {
@@ -119,7 +102,7 @@
      * @param data
      * @returns {*}
      */
-    u.getValue = function(key, data) {
+    u.getValue = function (key, data) {
         var keys = key.split('.'),
             result = data[keys.shift()];
         for (var i = 0; result && i < keys.length; i++) {
@@ -133,7 +116,7 @@
      * @param val
      * @returns {*}
      */
-    u.getDefaultValue = function(val) {
+    u.getDefaultValue = function (val) {
         if (val === null || typeof val === 'undefined') {
             return '';
         } else {
@@ -146,7 +129,7 @@
      * @param item 目标
      * @returns {Array} 返回绑定名列表
      */
-    u.getBindToNameList = function(item) {
+    u.getBindToNameList = function (item) {
         var binds = item.attributes['data-bind-to'];
         var re = [];
         if (binds && binds.value) {
@@ -162,8 +145,8 @@
         return re;
     };
 
-    
-        /**
+
+    /**
      * 显示一个对象
      * 设置style.display=''，同时去掉class中名为hide样式
      *
@@ -183,4 +166,4 @@
             }
         }
     };
-})(window, window.domjs.template.util,window.domjs.util);
+})(window, window.domjs.template.util, window.domjs.util);

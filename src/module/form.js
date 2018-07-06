@@ -2,7 +2,7 @@
  * 处理表单内容，用于数据传送
  * @class app.form
  */
-(function (dj,service, va, util, undefined) {
+(function (dj, service, va, util, undefined) {
 
     /**
      * 表单项
@@ -29,7 +29,7 @@
          * 验证串
          * @type {string}
          */
-        this.valtext = '';
+        this.dataMessage = '';
 
     }
 
@@ -41,6 +41,8 @@
     FormItem.prototype.getValue = function () {
         if (this.values.length === 1) {
             return this.values[0];
+        } else if (this.values.length === 0) {
+            return '';
         } else {
             return this.values;
         }
@@ -56,14 +58,10 @@
             if (typeof re === 'string') {
                 return re;
             } else if (!re) {
-                return this.valtext;
+                return this.dataMessage;
             }
         }
-        var chk = this.item;
-        if (chk.attributes['error-to-parent'] && chk.parentElement) {
-            chk = chk.parentElement;
-        }
-        util.removeClass(chk, 'has-error');
+        this.clearError();
         return false;
     };
     /**
@@ -93,6 +91,23 @@
             chk = chk.parentElement;
         }
         util.addClass(chk, 'has-error');
+    };
+    /**
+     * 显示一个错误提示
+     */
+    FormItem.prototype.clearError = function (msg) {
+        var chk = this.item;
+        if (service.errorHtml !== '') {
+            var errId = chk.name + '_error';
+            var errObj = document.getElementById(errId);
+            if (errObj) {
+                errObj.innerHTML = '';
+            }
+        }
+        if (chk.attributes['error-to-parent'] && chk.parentElement) {
+            chk = chk.parentElement;
+        }
+        util.removeClass(chk, 'has-error');
     };
     /**
      * 根据指定元素的名称或是id选取值
@@ -171,19 +186,21 @@
                     formitem.values.push(item.value);
                 }
                 //取验证规则
-                if (item.attributes.hasOwnProperty('valtext')) {
-                    if (item.attributes.valtext.value !== '') {
-                        formitem.valtext = item.attributes.valtext.value;
+                if (item.attributes.hasOwnProperty('data-message')) {
+                    if (item.attributes['data-message'].value !== '') {
+                        formitem.dataMessage = item.attributes['data-message'].value;
                     }
                 } else {
                     if (item.attributes.hasOwnProperty('placeholder') && item.attributes.placeholder.value !== '') {
-                        formitem.valtext = item.attributes.placeholder.value;
+                        formitem.dataMessage = item.attributes.placeholder.value;
+                    } else if (item.attributes.hasOwnProperty('data-placeholder') && item.attributes['data-placeholder'].value !== '') {
+                        formitem.dataMessage = item.attributes['data-placeholder'].value;
                     }
                 }
                 //required,pattern
                 if (item.attributes.hasOwnProperty('required')) {
                     if (item.attributes.required.value === '') {
-                        formitem.validateRule.required = formitem.valtext;
+                        formitem.validateRule.required = formitem.dataMessage;
                     } else {
                         formitem.validateRule.required = item.attributes.required.value;
                     }
@@ -317,4 +334,4 @@
         }
         return param;
     };
-})(window.domjs,window.domjs.form = {}, window.domjs.validate, window.domjs.util);
+})(window.domjs, window.domjs.form = {}, window.domjs.validate, window.domjs.util);
