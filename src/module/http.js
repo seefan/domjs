@@ -43,6 +43,7 @@
         opt.type = 'POST';
         opt.dataType = 'json';
         opt.data = param;
+        opt.async = true;
         /**
          * 这里出错说明网络访问有问题
          * @param data
@@ -50,16 +51,16 @@
         opt.error = function (data) {
             app.util.log('请求' + url + '错误，问题是：' + data.statusText + "，状态：" + data.status + '，返回：' + data.responseText);
             if (second === true) {
-                    data = {};
-                    data.error = '网络访问出错，请稍后再试。';
-                    data.reset = true;
-                    if (typeof errorback === 'function') {
-                        errorback(data);
-                    } else {
-                        if (!app.disableError) {
-                            app.error(data);
-                        }
+                data = {};
+                data.error = '网络访问出错，请稍后再试。';
+                data.reset = true;
+                if (typeof errorback === 'function') {
+                    errorback(data);
+                } else {
+                    if (!app.disableError) {
+                        app.error(data);
                     }
+                }
             } else if (service.enableRetry) {
                 service.post(url, param, callback, errorback, true);
             }
@@ -87,4 +88,4 @@
         app.optAjax.ajax(opt);
     };
 })
-(window.domjs,window.domjs.util, window.domjs.http = {});
+(window.domjs, window.domjs.util, window.domjs.http = {});

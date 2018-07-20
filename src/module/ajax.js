@@ -251,7 +251,7 @@
         if (dj.login) {
             param.token = dj.login.token;
         }
-        if (typeof errorback === 'function') {
+        if (typeof errorback !== 'function') {
             errorback = dj.error;
         }
         dj.http.post(dj.root + dj.apiroot + url, param, callback, errorback);
