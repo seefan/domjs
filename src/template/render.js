@@ -306,10 +306,14 @@
             if (bs.length > 0) {
                 for (; m < bs.length; m++) {
                     attrName = bs[m];
-                    if (items[i].attributes[attrName]) {
+                    if (items[i].attributes['data-template']) {
                         tpl = items[i].attributes[attrName].value;
                     } else {
-                        tpl = items[i][attrName];
+                        if (items[i].attributes[attrName]) {
+                            tpl = items[i].attributes[attrName].value;
+                        } else {
+                            tpl = items[i][attrName];
+                        }
                     }
                     //var xf = r.syntax.buildFunc(key, tpl);
                     var xf = r.syntax.cacheFunc('bind', tpl, tpl);
@@ -336,11 +340,19 @@
                         value = r.util.getValue(key, data);//不需要html转义
                     }
                 } else {
-                    value = r.util.html(r.util.getValue(key, data));
+                    if (items[i].attributes['data-template']) {
+                        tpl = items[i].attributes['data-template'].value;
+                        var xxf = r.syntax.cacheFunc('bind', tpl, tpl);
+                        if (xxf.func) {
+                            value = xxf.func(r, data);
+                        }
+                    } else {
+                        value = r.util.html(r.util.getValue(key, data));
+                        if (items[i].attributes['data-format-date']) {
+                            value = r.funcs.format_date(value, items[i].attributes['data-format-date'].value);
+                        }
+                    }
                 }
-            }
-            if (items[i].attributes['data-format-date']) {
-                value = r.funcs.format_date(value);
             }
             r.util.setValue(items[i], value);
             r.util.show(items[i]);

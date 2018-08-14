@@ -1664,7 +1664,7 @@
 //    13 一年的12个月(01～09和1～12)：^(0?[1-9]|1[0-2])$
 //    14 一个月的31天(01～09和1～31)：^((0?[1-9])|((1|2)[0-9])|30|31)$
 //    26 中文字符的正则表达式：[\u4e00-\u9fa5]
-//    32 中国邮政编码：[1-9]\d{5}(?!\d)    (中国邮政编码为6位数字)
+//    32 中国邮政编码：[1-9]\˚d{5}(?!\d)    (中国邮政编码为6位数字)
 //    33 IP地址：\d+\.\d+\.\d+\.\d+    (提取IP地址时有用)
 })(window.domjs.validate = {});;/**
  * 处理表单内容，用于数据传送
@@ -3352,10 +3352,14 @@
             if (bs.length > 0) {
                 for (; m < bs.length; m++) {
                     attrName = bs[m];
-                    if (items[i].attributes[attrName]) {
+                    if (items[i].attributes['data-template']) {
                         tpl = items[i].attributes[attrName].value;
                     } else {
-                        tpl = items[i][attrName];
+                        if (items[i].attributes[attrName]) {
+                            tpl = items[i].attributes[attrName].value;
+                        } else {
+                            tpl = items[i][attrName];
+                        }
                     }
                     //var xf = r.syntax.buildFunc(key, tpl);
                     var xf = r.syntax.cacheFunc('bind', tpl, tpl);
@@ -3382,11 +3386,19 @@
                         value = r.util.getValue(key, data);//不需要html转义
                     }
                 } else {
-                    value = r.util.html(r.util.getValue(key, data));
+                    if (items[i].attributes['data-template']) {
+                        tpl = items[i].attributes['data-template'].value;
+                        var xxf = r.syntax.cacheFunc('bind', tpl, tpl);
+                        if (xxf.func) {
+                            value = xxf.func(r, data);
+                        }
+                    } else {
+                        value = r.util.html(r.util.getValue(key, data));
+                        if (items[i].attributes['data-format-date']) {
+                            value = r.funcs.format_date(value, items[i].attributes['data-format-date'].value);
+                        }
+                    }
                 }
-            }
-            if (items[i].attributes['data-format-date']) {
-                value = r.funcs.format_date(value);
             }
             r.util.setValue(items[i], value);
             r.util.show(items[i]);
