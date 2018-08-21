@@ -287,7 +287,7 @@
         if (!items || !items.length) {
             return;
         }
-        var i, value, tpl, attrName, key;
+        var i, value, tpl, attrName, key, xf;
         for (i = 0; i < items.length; i++) {
             value = '';
             key = items[i].attributes['data-bind'].value;
@@ -300,56 +300,24 @@
             if (!items[i].name) {
                 items[i].name = key;
             }
-            var bs = r.util.getBindToNameList(items[i]),
-                m = 0;//data-bind-to
-
-            if (bs.length > 0) {
-                for (; m < bs.length; m++) {
-                    attrName = bs[m];
-                    if (items[i].attributes['data-template']) {
-                        tpl = items[i].attributes[attrName].value;
-                    } else {
-                        if (items[i].attributes[attrName]) {
-                            tpl = items[i].attributes[attrName].value;
-                        } else {
-                            tpl = items[i][attrName];
-                        }
-                    }
-                    //var xf = r.syntax.buildFunc(key, tpl);
-                    var xf = r.syntax.cacheFunc('bind', tpl, tpl);
-                    if (xf.func) {
-                        value = xf.func(r, data);
-                    } else {
-                        //如果简单的绑定innerHTML,就不再转为纯文本了
-                        if (attrName === 'innerHTML') {
-                            value = r.util.getValue(key, data);
-                        } else {
-                            value = r.util.html(r.util.getValue(key, data));
-                        }
-                    }
-                }
-
-            } else {
-                //单独处理一下img的data-bind-src，使用模板
-                if (items[i].tagName === 'IMG' && items[i].attributes['data-bind-src']) {
-                    //var xff = r.syntax.buildFunc(key, items[i].attributes['data-bind-src'].value);
-                    var xff = r.syntax.cacheFunc('bind', items[i].attributes['data-bind-src'].value, items[i].attributes['data-bind-src'].value);
-                    if (xff.func) {
-                        value = xff.func(r, data);
-                    } else {
-                        value = r.util.getValue(key, data);//不需要html转义
-                    }
+            //单独处理一下img的data-bind-src，使用模板
+            if (items[i].tagName === 'IMG' && items[i].attributes['data-bind-src']) {
+                //var xff = r.syntax.buildFunc(key, items[i].attributes['data-bind-src'].value);
+                xf = r.syntax.cacheFunc('bind', items[i].attributes['data-bind-src'].value, items[i].attributes['data-bind-src'].value);
+                if (xf.func) {
+                    value = xf.func(r, data);
                 } else {
-                    if (items[i].attributes['data-template']) {
-                        tpl = items[i].attributes['data-template'].value;
-                        var xxf = r.syntax.cacheFunc('bind', tpl, tpl);
-                        if (xxf.func) {
-                            value = xxf.func(r, data);
-                        }
-                    } else {
-                        value = r.util.html(r.util.getValue(key, data));
-                        if (items[i].attributes['data-format-date']) {
-                            value = r.funcs.format_date(value, items[i].attributes['data-format-date'].value);
+                    value = r.util.getValue(key, data);//不需要html转义
+                }
+            } else {
+                value = r.util.getValue(key, data);
+                if (items[i].attributes['data-template']) {
+                    tpl = items[i].attributes['data-template'].value;
+                    if (tpl) {
+                        tpl = '{' + key + '|' + tpl + '}';
+                        xf = r.syntax.cacheFunc('bind', tpl, tpl);
+                        if (xf.func) {
+                            value = xf.func(r, data);
                         }
                     }
                 }

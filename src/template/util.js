@@ -27,21 +27,23 @@
      * @param value 值
      */
     u.setValue = function (ele, value) {
-        var tag = ele.tagName,
-            i = 0, j = 0;
-        var vs;
+        var i = 0;
         var bs = u.getBindToNameList(ele);
         if (bs.length > 0) {
             for (i in bs) {
                 var attrName = bs[i];
                 if (ele.attributes[attrName]) {
-                    ele.setAttribute(attrName, value);
+                    if (attrName === 'innerHTML') {
+                        ele.setAttribute(attrName, value);
+                    } else {
+                        ele.setAttribute(attrName, u.html(value));
+                    }
                 } else {
-                    ele[attrName] = value;
+                    ele[attrName] = u.html(value);
                 }
             }
         } else {
-            util.bindElementValue(ele, value);
+            util.bindElementValue(ele, u.html(value));
         }
     };
 

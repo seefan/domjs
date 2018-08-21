@@ -179,9 +179,14 @@
                         formitem.values.push(item.value);
                     }
                 } else if (item.tagName === 'SELECT') {
-                    if (item.selectedIndex >= 0 && item.options[item.selectedIndex].value) {
-                        formitem.values.push(item.options[item.selectedIndex].value);
+                    for (var j = 0; j < item.options.length; j++) {
+                        if (item.options[j].selected) {
+                            formitem.values.push(item.options[j].value);
+                        }
                     }
+                    //if (item.selectedIndex >= 0 && item.options[item.selectedIndex].value) {
+                    //    formitem.values.push(item.options[item.selectedIndex].value);
+                    //}
                 } else {
                     formitem.values.push(item.value);
                 }
