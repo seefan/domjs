@@ -3387,7 +3387,7 @@
      * @param value 绑定值
      */
     dj.bindName = function (name, value) {
-        var items = r.util.querySelectorAll('[data-bind="' + name + '"]');
+        var items = dj.util.querySelectorAll('[data-bind="' + name + '"]');
         if (items) {
             for (var i = 0; i < items.length; i++) {
                 r.util.setValue(items[i], value);
