@@ -1,5 +1,5 @@
-(function(dj){
-/**
+(function (dj) {
+    /**
      * 通用提示函数，默认调用window.alert()
      * @method alert
      * @param msg 提示信息
@@ -100,7 +100,7 @@
                 dj.toast(data);
             } else {
                 if (dj.debug) {
-                    dj.toast('数据请求出错，请检查网络是否可以正常访问！');
+                    dj.toast('Request error, please check the network!');
                 }
             }
         }

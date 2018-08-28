@@ -153,7 +153,7 @@
      * @returns {string}
      */
     r.addFunc('noFunc', function () {
-        return '没有找到正确的处理函数';
+        return 'Method not found';
     });
     /**
      * 重复输出num次val

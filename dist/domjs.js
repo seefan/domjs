@@ -712,8 +712,8 @@
         };
     }
 
-})(window.domjs.util = {}, document, window);;(function(dj){
-/**
+})(window.domjs.util = {}, document, window);;(function (dj) {
+    /**
      * 通用提示函数，默认调用window.alert()
      * @method alert
      * @param msg 提示信息
@@ -814,7 +814,7 @@
                 dj.toast(data);
             } else {
                 if (dj.debug) {
-                    dj.toast('数据请求出错，请检查网络是否可以正常访问！');
+                    dj.toast('Request error, please check the network!');
                 }
             }
         }
@@ -1873,7 +1873,11 @@
                 //required,pattern
                 if (item.attributes.hasOwnProperty('required')) {
                     if (item.attributes.required.value === '') {
-                        formitem.validateRule.required = formitem.dataMessage;
+                        if (formitem.dataMessage) {
+                            formitem.validateRule.required = formitem.dataMessage;
+                        } else {
+                            formitem.validateRule.required = item.name + ' is required';
+                        }
                     } else {
                         formitem.validateRule.required = item.attributes.required.value;
                     }
@@ -2654,7 +2658,7 @@
      * @returns {string}
      */
     r.addFunc('noFunc', function () {
-        return '没有找到正确的处理函数';
+        return 'Method not found';
     });
     /**
      * 重复输出num次val
