@@ -1873,11 +1873,7 @@
                 //required,pattern
                 if (item.attributes.hasOwnProperty('required')) {
                     if (item.attributes.required.value === '') {
-                        if (formitem.dataMessage) {
-                            formitem.validateRule.required = formitem.dataMessage;
-                        } else {
-                            formitem.validateRule.required = item.name + ' is required';
-                        }
+                        formitem.validateRule.required = formitem.dataMessage;
                     } else {
                         formitem.validateRule.required = item.attributes.required.value;
                     }
