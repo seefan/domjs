@@ -1110,7 +1110,7 @@
     };
 })(window.domjs, window.domjs.jsonp = {}, window.domjs.util);
 
-;(function(dj,http,jsonp){
+;(function (dj, http, jsonp) {
 
     /**
      *请求并绑定远程数据，支持数组和单变量绑定，功能全面
@@ -1292,7 +1292,8 @@
             option.f_success(data);
         }
     }
-/**
+
+    /**
      * 提示一个表单数据到远程
      * 示例：
      *
@@ -1439,19 +1440,24 @@
             id = '';
         }
         if (dj.util.isPlainObject(postUrl)) {
-            callback=param;
+            callback = param;
             param = postUrl;
-            postUrl=id;
-            id='';
+            postUrl = id;
+            id = '';
+        }
+        if (typeof postUrl === "function") {
+            callback = postUrl;
+            param = undefined;
+            postUrl = id;
+            id = '';
         }
         if (typeof param === "function") {
             callback = param;
             param = undefined;
         }
-        dj.util.setHide('#' + id + '_loading', false);
         return dj.ajax(postUrl, param).filter(function (e) {
             if (e.data) {
-                if (dj.util.isArray(e.data) && id!=='') {
+                if (dj.util.isArray(e.data) && id !== '') {
                     if (e.data.length > 0) {
                         dj.util.setHide('#' + id + '_empty');
                     } else {
@@ -1461,11 +1467,10 @@
                 return e.data;
 
             }
-            dj.util.setHide('#' + id + '_loading');
             return false;
         }).success(callback).bind(id);
     };
-})(window.domjs,window.domjs.http,window.domjs.jsonp);;/**
+})(window.domjs, window.domjs.http, window.domjs.jsonp);;/**
  * 字串验证类
  * 验证规则优先级
  *
@@ -1957,10 +1962,10 @@
      * @method getFormParam
      * @param name {string|array|object} 表单的id或是表单元素名称的数组或是表单本身(this)
      * @param valid {boolean} 是否执行验证，默认为false
-     * @return {Hash|undefined} 如果执行了验证，在验证不通过时会返回undefined
+     * @return {Object|undefined} 如果执行了验证，在验证不通过时会返回undefined,验证通过没有表单元项也返回undefined
      */
     service.getFormParam = function (name, valid) {
-        var param = {}, item, i = 0, v;
+        var param = {}, len = 0, i = 0, v;
         if (util.isArray(name)) {//name的数组
             for (; i < name.length; i++) {
                 v = this.val(name[i], valid);
@@ -1968,11 +1973,12 @@
                     return;
                 }
                 param[name[i]] = v;
+                len++;
             }
-            return param;
+            return len === 0 ? undefined : param;
         }
         if (name === '') {
-            return param;
+            return undefined;
         }
         //以下处理完整表单
         var form;
@@ -1982,7 +1988,7 @@
             form = name;
         }
         if (!form) {
-            return param;
+            return undefined;
         }
         var items = [];
         for (i = 0; i < form.length; i++) {
@@ -2004,8 +2010,9 @@
             } else {
                 param[value.name] = value.getValue();
             }
+            len++;
         }
-        return param;
+        return len === 0 ? undefined : param;
     };
 })(window.domjs, window.domjs.form = {}, window.domjs.validate, window.domjs.util);;/**
  * JsTemplate的运行主体，对外使用的变量有$scope，当使用bindData时，变量会按绑定名字注入这个变量。

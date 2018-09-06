@@ -258,7 +258,7 @@
     };
 
     /**
-     * 检查表单项
+     * 检查表单项,表单项必须有内容
      * @method check
      * @param name {string|array|object} 表单的id或是表单元素名称的数组或是表单本身(this)
      * @return {boolean} 是否通过验证
@@ -289,10 +289,10 @@
      * @method getFormParam
      * @param name {string|array|object} 表单的id或是表单元素名称的数组或是表单本身(this)
      * @param valid {boolean} 是否执行验证，默认为false
-     * @return {Hash|undefined} 如果执行了验证，在验证不通过时会返回undefined
+     * @return {Object|undefined} 如果执行了验证，在验证不通过时会返回undefined,验证通过没有表单元项也返回undefined
      */
     service.getFormParam = function (name, valid) {
-        var param = {}, item, i = 0, v;
+        var param = {}, len = 0, i = 0, v;
         if (util.isArray(name)) {//name的数组
             for (; i < name.length; i++) {
                 v = this.val(name[i], valid);
@@ -300,11 +300,12 @@
                     return;
                 }
                 param[name[i]] = v;
+                len++;
             }
-            return param;
+            return len === 0 ? undefined : param;
         }
         if (name === '') {
-            return param;
+            return undefined;
         }
         //以下处理完整表单
         var form;
@@ -314,7 +315,7 @@
             form = name;
         }
         if (!form) {
-            return param;
+            return undefined;
         }
         var items = [];
         for (i = 0; i < form.length; i++) {
@@ -336,7 +337,8 @@
             } else {
                 param[value.name] = value.getValue();
             }
+            len++;
         }
-        return param;
+        return len === 0 ? undefined : param;
     };
 })(window.domjs, window.domjs.form = {}, window.domjs.validate, window.domjs.util);
