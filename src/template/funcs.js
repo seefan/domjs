@@ -79,6 +79,9 @@
      * @returns {number}
      */
     r.addFunc('format_money', function (val) {
+        if (!val) {
+            return '';
+        }
         return parseFloat(val);
     });
 
@@ -99,6 +102,9 @@
      * @returns {string} 格式化后的日期串
      */
     r.addFunc('format_date', function (val, fmt) {
+        if (!val) {
+            return '';
+        }
         if (typeof(val) !== 'object') {
             val = new Date(parseInt(val));
         }

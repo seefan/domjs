@@ -1931,7 +1931,7 @@
     };
 
     /**
-     * 检查表单项
+     * 检查表单项,表单项必须有内容
      * @method check
      * @param name {string|array|object} 表单的id或是表单元素名称的数组或是表单本身(this)
      * @return {boolean} 是否通过验证
@@ -2587,6 +2587,9 @@
      * @returns {number}
      */
     r.addFunc('format_money', function (val) {
+        if (!val) {
+            return '';
+        }
         return parseFloat(val);
     });
 
@@ -2607,6 +2610,9 @@
      * @returns {string} 格式化后的日期串
      */
     r.addFunc('format_date', function (val, fmt) {
+        if (!val) {
+            return '';
+        }
         if (typeof(val) !== 'object') {
             val = new Date(parseInt(val));
         }
