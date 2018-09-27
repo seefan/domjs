@@ -52,7 +52,7 @@
     <li>多数据源绑定：<p data-bind="product_name"></p>
 
         <p data-bind="data1.product_name"></p></li>
-    <li>在模板中处理子循环：<p data-bind="list" data-bind-to="innerHTML">{list|range,'ID:(id)&nbsp; '}
+    <li>在模板中处理子循环：<p data-bind="list" data-template="range,'ID:(id)&nbsp; '"></p>
 
         <p/>使用内部函数range，后面为模板内容。但为了区分子模板和主模板，子模板的大括号用()代替，请注意
     </li>
@@ -67,7 +67,7 @@
     domjs.debug=true;
     domjs.ready(function () {
         domjs.bindData(data.data[0]);
-        //Render.bindData('data1', data.data[0]);
+        domjs.bindData('data1', data.data[0]);
     });
 </script>
 </body>

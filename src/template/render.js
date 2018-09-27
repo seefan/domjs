@@ -290,9 +290,14 @@
         var i, value, tpl, attrName, key, xf;
         for (i = 0; i < items.length; i++) {
             value = '';
-            key = items[i].attributes['data-bind'].value;
-            if (name !== '__data__' && key.indexOf('.') !== -1) {
-                key = key.substring(name.length + 1);
+            attrName = items[i].attributes['data-bind'].value;
+            if (name !== '__data__' && attrName.indexOf('.') !== -1) {
+                key = attrName.substring(attrName.indexOf('.'));
+                if (attrName !== name + '.' + key) {
+                    continue;
+                }
+            } else {
+                key = attrName;
             }
             if (!key || !data.hasOwnProperty(key)) {
                 continue;
