@@ -291,15 +291,19 @@
         for (i = 0; i < items.length; i++) {
             value = '';
             attrName = items[i].attributes['data-bind'].value;
-            if (name !== '__data__' && attrName.indexOf('.') !== -1) {
-                key = attrName.substring(attrName.indexOf('.'));
-                if (attrName !== name + '.' + key) {
+            if (!attrName) {
+                continue;
+            }
+            if (name !== '__data__') {
+                if (attrName.indexOf(name + '.') !== 0) {
                     continue;
                 }
+                key = attrName.substring(attrName.indexOf('.') + 1);
             } else {
                 key = attrName;
             }
-            if (!key || !data.hasOwnProperty(key)) {
+
+            if (!data.hasOwnProperty(key)) {
                 continue;
             }
             if (!items[i].name) {
