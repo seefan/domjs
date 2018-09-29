@@ -209,6 +209,9 @@
                     } else {
                         formitem.validateRule.required = item.attributes.required.value;
                     }
+                    if(!formitem.validateRule.required){
+                        formitem.validateRule.required=formitem.name + ' is required';
+                    }
                     formitem.validateRule.hasRule = true;
                 }
                 //confirm

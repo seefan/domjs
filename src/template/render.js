@@ -306,9 +306,6 @@
             if (!data.hasOwnProperty(key)) {
                 continue;
             }
-            if (!items[i].name) {
-                items[i].name = key;
-            }
             //单独处理一下img的data-bind-src，使用模板
             if (items[i].tagName === 'IMG' && items[i].attributes['data-bind-src']) {
                 //var xff = r.syntax.buildFunc(key, items[i].attributes['data-bind-src'].value);
