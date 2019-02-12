@@ -29,7 +29,7 @@
      */
     service.post = function (url, param, callback, errorback, second) {
         if (app.optAjax === false) {
-            app.error('没有配置ajax执行类');
+            app.error('No configuration ajax execution class');
             return;
         }
         if (!app.util.isPlainObject(param)) {
@@ -49,7 +49,7 @@
          * @param data
          */
         opt.error = function (data) {
-            app.util.log('请求' + url + '错误，问题是：' + data.statusText + "，状态：" + data.status + '，返回：' + data.responseText);
+            app.util.log('request ' + url + ' failed,message:' + data.statusText + ",status:" + data.status + '，return:' + data.responseText);
             if (second === true) {
                 data = {};
                 data.error = '网络访问出错，请稍后再试。';

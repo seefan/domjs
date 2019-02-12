@@ -74,7 +74,7 @@
      * @type {Object}
      * @default dj.ajax
      */
-    dj.optAjax = typeof(jQuery) !== 'undefined' ? jQuery : false;
+    dj.optAjax;
     /**
      * 站点根路径，通常上传的图片使用这个值
      * @property root
@@ -218,6 +218,9 @@
         } else {
             setTimeout(timeReady, 5);
         }
+    }
+    if (typeof window['$'] != 'undefined') {
+        dj.optAjax = window['$'];
     }
 })(window.domjs = {}, document);;/**
  * app的工具函数集合
@@ -850,7 +853,7 @@
      */
     service.post = function (url, param, callback, errorback, second) {
         if (app.optAjax === false) {
-            app.error('没有配置ajax执行类');
+            app.error('No configuration ajax execution class');
             return;
         }
         if (!app.util.isPlainObject(param)) {
@@ -870,7 +873,7 @@
          * @param data
          */
         opt.error = function (data) {
-            app.util.log('请求' + url + '错误，问题是：' + data.statusText + "，状态：" + data.status + '，返回：' + data.responseText);
+            app.util.log('request ' + url + ' failed,message:' + data.statusText + ",status:" + data.status + '，return:' + data.responseText);
             if (second === true) {
                 data = {};
                 data.error = '网络访问出错，请稍后再试。';
@@ -1654,11 +1657,23 @@
     //email
     v.regex.email = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
     //手机
-    v.regex.mobile = /^1[34578]{1}\d{9}$/;
+    v.regex.mobile = /^1[34578]+\d{9}$/;
     //网址
     v.regex.url = /[a-zA-z]+:\/\/[^\s]*/;
     //电话
     v.regex.tel = /\d+/;
+    //date
+    v.regex.date = /\d{4}-\d{1,2}-\d{1,2}/;
+    //month
+    v.regex.month = /(0?[1-9]|1[0-2])/;
+    //day
+    v.regex.day = /((0?[1-9])|((1|2)[0-9])|30|31)/;
+    //domain
+    v.regex.domain = /[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+\.?/;
+    //id card
+    v.regex.idcard = /(\d{18}|\d{15}|\d{17}x)/;
+    //chinese word
+    v.regex.chineseword = /[\u4e00-\u9fa5]/;
 
 //    1 Email地址：^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$
 //    2 域名：[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(/.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+/.?

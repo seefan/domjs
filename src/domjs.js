@@ -74,7 +74,7 @@
      * @type {Object}
      * @default dj.ajax
      */
-    dj.optAjax = typeof(jQuery) !== 'undefined' ? jQuery : false;
+    dj.optAjax;
     /**
      * 站点根路径，通常上传的图片使用这个值
      * @property root
@@ -218,5 +218,8 @@
         } else {
             setTimeout(timeReady, 5);
         }
+    }
+    if (typeof window['$'] != 'undefined') {
+        dj.optAjax = window['$'];
     }
 })(window.domjs = {}, document);
