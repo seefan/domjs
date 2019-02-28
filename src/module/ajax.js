@@ -57,10 +57,11 @@
         if (param === '' || typeof param === 'undefined') {
             param = dj.util.getUrlQuery();
         }
+
         var option = {
             id: '',
             url: postUrl,
-            param: param,
+            param: dj.util.extend({}, dj.httpParam, param),
             f_datafilter: undefined,
             f_success: undefined,
             f_error: function (data) {
@@ -69,6 +70,7 @@
             isAppend: false,
             isAnimation: dj.animationBind
         };
+
         /**
          * 数据过虑回调
          * @method filter
@@ -130,12 +132,6 @@
             return this;
         };
 
-        if (!dj.util.isPlainObject(option.param)) {
-            option.param = {};
-        }
-        if (dj.login) {
-            option.param.token = dj.login.token;
-        }
         if (dj.enableJsonp) {
             jsonp.get(dj.root + dj.apiroot + option.url, option.param, function (e) {
                 success(option, e);
@@ -246,16 +242,11 @@
         if (param === '' || typeof param === 'undefined') {
             param = dj.util.getUrlQuery();
         }
-        if (!dj.util.isPlainObject(param)) {
-            param = {};
-        }
-        if (dj.login) {
-            param.token = dj.login.token;
-        }
+
         if (typeof errorback !== 'function') {
             errorback = dj.error;
         }
-        dj.http.post(dj.root + dj.apiroot + url, param, callback, errorback);
+        dj.http.post(dj.root + dj.apiroot + url, dj.util.extend({}, dj.httpParam, param), callback, errorback);
     };
     /**
      * 请求数据，同时使用通用的处理方式处理数据错误。如果指定的错误的处理方式，就用指定的方式。
@@ -285,19 +276,14 @@
         if (param === '' || typeof param === 'undefined') {
             param = dj.util.getUrlQuery();
         }
-        if (!dj.util.isPlainObject(param)) {
-            param = {};
-        }
-        if (dj.login) {
-            param.token = dj.login.token;
-        }
+
         if (typeof errorback !== 'function') {
             errorback = dj.error;
         }
         if (dj.enableJsonp) {
-            jsonp.get(dj.root + dj.apiroot + url, param, callback, errorback);
+            jsonp.get(dj.root + dj.apiroot + url, dj.util.extend({}, dj.httpParam, param), callback, errorback);
         } else {
-            http.post(dj.root + dj.apiroot + url, param, callback, errorback);
+            http.post(dj.root + dj.apiroot + url, dj.util.extend({}, dj.httpParam, param), callback, errorback);
         }
 
     };

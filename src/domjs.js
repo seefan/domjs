@@ -91,6 +91,12 @@
      */
     dj.apiroot = '';
     /**
+     * http的通用参数，该参数固定加到http的请求中去
+     *
+     * @type {{}}
+     */
+    dj.httpParam = {};
+    /**
      * 需要执行的初始化函数，内部用
      * @type {Array}
      */
