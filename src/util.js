@@ -223,7 +223,7 @@
      * @param args {...} 多个参数
      */
     util.log = function () {
-        if (window.domjs.debug) {
+        if (w.domjs.debug) {
             for (var i in arguments) {
                 console.log(JSON.stringify(arguments[i]));
             }
