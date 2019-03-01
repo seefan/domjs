@@ -62,6 +62,13 @@
      */
     dj.debug = false;
     /**
+     * 是否处于调试状态
+     * @returns {*}
+     */
+    dj.isDebug = function () {
+        return dj.debug;
+    };
+    /**
      * @property  是否禁止显示错误信息，只针对系统自动产生的错误，如http提交时。
      * @default false
      * @type {boolean}
@@ -232,7 +239,7 @@
  * app的工具函数集合
  * @class app.util
  */
-(function (util, document, w, undefined) {
+(function (dj, util, document, w, undefined) {
     /**
      * 在指定对象平级附加一个对象
      * @method insertAfter
@@ -453,7 +460,7 @@
      * @param args {...} 多个参数
      */
     util.log = function () {
-        if (w.domjs.debug) {
+        if (dj.isDebug()) {
             for (var i in arguments) {
                 console.log(JSON.stringify(arguments[i]));
             }
@@ -721,7 +728,7 @@
         };
     }
 
-})(window.domjs.util = {}, document, window);;(function (dj) {
+})(window.domjs, window.domjs.util = {}, document, window);;(function (dj) {
     /**
      * 通用提示函数，默认调用window.alert()
      * @method alert
