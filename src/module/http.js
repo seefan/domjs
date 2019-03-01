@@ -49,16 +49,18 @@
          * @param data
          */
         opt.error = function (data) {
-            app.util.log('request ' + url + ' failed,message:' + data.statusText + ",status:" + data.status + '，return:' + data.responseText);
             if (second === true) {
-                data = {};
-                data.error = '网络访问出错，请稍后再试。';
-                data.reset = true;
+                var err = {};
+                err.url = url;
+                err.response = data.responseText;
+                err.status = data.statusText;
+                err.error = 'request error,please try again';
+                err.reset = true;
                 if (typeof errorback === 'function') {
-                    errorback(data);
+                    errorback(err);
                 } else {
                     if (!app.disableError) {
-                        app.error(data);
+                        app.error(err);
                     }
                 }
             } else if (service.enableRetry) {

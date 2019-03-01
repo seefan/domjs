@@ -101,6 +101,7 @@
             } else {
                 if (dj.debug) {
                     dj.toast('Request error, please check the network!');
+                    dj.util.log(data);
                 }
             }
         }

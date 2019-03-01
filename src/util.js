@@ -223,11 +223,12 @@
      * @param args {...} 多个参数
      */
     util.log = function () {
-        if (dj.isDebug()) {
+        console.log(dj.debug);
+        //if (dj.isDebug()) {
             for (var i in arguments) {
                 console.log(JSON.stringify(arguments[i]));
             }
-        }
+        //}
     };
     /**
      * 取url的参数，并可以指定默认值
