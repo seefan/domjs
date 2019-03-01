@@ -2,7 +2,7 @@
  * app的工具函数集合
  * @class app.util
  */
-(function (util, document, w, undefined) {
+(function (dj, util, document, w, undefined) {
     /**
      * 在指定对象平级附加一个对象
      * @method insertAfter
@@ -223,7 +223,7 @@
      * @param args {...} 多个参数
      */
     util.log = function () {
-        if (w.domjs.debug) {
+        if (dj.isDebug()) {
             for (var i in arguments) {
                 console.log(JSON.stringify(arguments[i]));
             }
@@ -491,4 +491,4 @@
         };
     }
 
-})(window.domjs.util = {}, document, window);
+})(window.domjs, window.domjs.util = {}, document, window);

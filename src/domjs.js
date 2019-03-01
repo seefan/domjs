@@ -62,6 +62,13 @@
      */
     dj.debug = false;
     /**
+     * 是否处于调试状态
+     * @returns {*}
+     */
+    dj.isDebug = function () {
+        return dj.debug;
+    };
+    /**
      * @property  是否禁止显示错误信息，只针对系统自动产生的错误，如http提交时。
      * @default false
      * @type {boolean}
