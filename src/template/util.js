@@ -97,22 +97,6 @@
         }
     };
 
-
-    /**
-     * 取指定数组的值，内部用
-     * @param key
-     * @param data
-     * @returns {*}
-     */
-    u.getValue = function (key, data) {
-        var keys = key.split('.'),
-            result = data[keys.shift()];
-        for (var i = 0; result && i < keys.length; i++) {
-            result = result[keys[i]];
-        }
-        //
-        return u.getDefaultValue(result);
-    };
     /**
      * 取值，支持两种数据，简单变量和数组，如果为null或是undefined，自动转为空串。内部用
      * @param val

@@ -166,7 +166,7 @@
                 val += word.substring(1);
                 break;
             default :
-                val += "my.util.getValue('" + word + "',vo)";
+                val += "my.util.getDefaultValue(vo." + word + ")";
                 break;
         }
 

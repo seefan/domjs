@@ -822,7 +822,7 @@
      * @param data 待检查数据
      */
     dj.error = function (data) {
-        if (data && data.relogin) {
+        if (data && data.error == 'NotLogin') {
             dj.showLogin();
         } else {
             if (data && typeof data.error === 'string') {
@@ -2456,22 +2456,6 @@
         }
     };
 
-
-    /**
-     * 取指定数组的值，内部用
-     * @param key
-     * @param data
-     * @returns {*}
-     */
-    u.getValue = function (key, data) {
-        var keys = key.split('.'),
-            result = data[keys.shift()];
-        for (var i = 0; result && i < keys.length; i++) {
-            result = result[keys[i]];
-        }
-        //
-        return u.getDefaultValue(result);
-    };
     /**
      * 取值，支持两种数据，简单变量和数组，如果为null或是undefined，自动转为空串。内部用
      * @param val
@@ -2958,7 +2942,7 @@
                 val += word.substring(1);
                 break;
             default :
-                val += "my.util.getValue('" + word + "',vo)";
+                val += "my.util.getDefaultValue(vo." + word + ")";
                 break;
         }
 

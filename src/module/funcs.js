@@ -91,7 +91,7 @@
      * @param data 待检查数据
      */
     dj.error = function (data) {
-        if (data && data.relogin) {
+        if (data && data.error == 'NotLogin') {
             dj.showLogin();
         } else {
             if (data && typeof data.error === 'string') {
